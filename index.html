@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script src="js/gyronorm.complete.min.js"></script>
+		<script src="https://rawgit.com/guosim/GyroTest/master/js/gyronorm.complete.min.js"></script>
 	</head>
 	<body>
 		<div>
-			<p>Stats: <span id="stats">no stats yet!</span></p>
+			<p>Orientation (Alpha, Beta, Gamma, Abs): 
+            <span id="oalpha">no</span>, 
+            <span id="obeta">no</span>, 
+            <span id="ogamma">no</span>, 
+            <span id="oabs">no</span></p>
+
+            <p>Motion Acceleration (X, Y, Z): 
+            <span id="motionx">no</span>, 
+            <span id="motiony">no</span>, 
+            <span id="motionz">no</span></p>
 		</div>
 	</body>
 
@@ -16,6 +25,13 @@
 
     gn.init().then(function(){
         gn.start(function(data){
+            document.getElementById("oalpha").innerHTML = data.do.alpha;
+            document.getElementById("obeta").innerHTML = data.do.beta;
+            document.getElementById("ogamma").innerHTML = data.do.gamma;
+            document.getElementById("oabs").innerHTML = data.do.absolute;
+            document.getElementById("motionx").innerHTML = data.dm.x;
+            document.getElementById("motiony").innerHTML = data.dm.y;
+            document.getElementById("motionz").innerHTML = data.dm.z;
         	console.log(data.do.alpha, data.do.beta, data.do.gamma, data.do.absolute);
         	console.log(data.dm.x, data.dm.y, data.dm.z);
         	console.log(data.dm.gx, data.dm.gy, data.dm.gz);
