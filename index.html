@@ -48,7 +48,11 @@
             var avgdistance = sumdistance/distance.length;
             document.getElementById("averagedistance").innerHTML = avgdistance;
             if (avgdistance > 50)
-                
+                {
+                    var audio = new Audio('Swing2.WAV');
+                    audio.play();
+
+                };
             // Process:
             // data.do.alpha    ( deviceorientation event alpha value )
             // data.do.beta     ( deviceorientation event beta value )
