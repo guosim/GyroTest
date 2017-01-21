@@ -24,7 +24,9 @@
 	<script type="text/javascript">
 	var Promise = Promise || ES6Promise.Promise;
     var audio = new Audio('https://rawgit.com/guosim/GyroTest/master/assets/SaberOn.mp3');
-
+    function playSound(){
+        audio.play();
+    }
     var distance = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
     var gn = new GyroNorm();
     gn.init().then(function(){
@@ -45,9 +47,7 @@
             var avgdistance = sumdistance/distance.length;
             document.getElementById("averagedistance").innerHTML = avgdistance;
             if (avgdistance > 10)
-                {
-                    audio.play();
-                };
+                playSound();
 
 
         });
@@ -55,9 +55,6 @@
       // Catch if the DeviceOrientation or DeviceMotion is not supported by the browser or device
     });
 
-    function playSound(){
-        audio.play();
-    }
 
 </script>
 
