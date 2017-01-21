@@ -36,10 +36,7 @@
     var source1 = context.createBufferSource();
     var source2 = context.createBufferSource();
     source1.buffer = bufferList[0];
-
-
-  swing1.connect(context.destination);
-  source2.connect(context.destination);
+    swing1.connect(context.destination);
 
     var distance = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
     var gn = new GyroNorm();
