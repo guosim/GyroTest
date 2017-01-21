@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<script src="https://rawgit.com/guosim/GyroTest/master/js/gyronorm.complete.min.js"></script>
+        <script src="https://code.createjs.com/soundjs-0.6.2.min.js"></script>
 	</head>
 	<body>
 		<div>
@@ -27,10 +28,22 @@
     function playSound(){
         audio.play();
     }
+    createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.on("fileload", this.loadHandler, this);
+    createjs.Sound.registerSound("https://rawgit.com/guosim/CounterStrat/gh-pages/Idle/hum_1.mp3", "sound");
+    createjs.Sound.registerSound("https://rawgit.com/guosim/CounterStrat/gh-pages/Idle/hum_2.mp3", "sound");
+    createjs.Sound.registerSound("https://rawgit.com/guosim/CounterStrat/gh-pages/Idle/hum_4.mp3", "sound");
+    function loadHandler(event) {
+     // This is fired for each sound that is registered.
+     var instance = createjs.Sound.play("sound");  // play using id.  Could also use full sourcepath or event.src.
+     instance.on("complete", this.handleComplete, this);
+     instance.volume = 0.5;
+ }
     var distance = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
     var gn = new GyroNorm();
     gn.init().then(function(){
         gn.start(function(data){
+            /*
             document.getElementById("oalpha").innerHTML = data.do.alpha;
             document.getElementById("obeta").innerHTML = data.do.beta;
             document.getElementById("ogamma").innerHTML = data.do.gamma;
@@ -38,6 +51,7 @@
             document.getElementById("motionx").innerHTML = data.dm.x;
             document.getElementById("motiony").innerHTML = data.dm.y;
             document.getElementById("motionz").innerHTML = data.dm.z;
+            */
             distance.push(Math.abs(data.dm.x)+Math.abs(data.dm.y)+Math.abs(data.dm.z));
             distance.shift();
             var sumdistance = 0;
