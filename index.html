@@ -15,6 +15,7 @@
             <span id="motionx">no</span>, 
             <span id="motiony">no</span>, 
             <span id="motionz">no</span></p>
+            <h1><span id="averagedistance"></span></h1>
 		</div>
 	</body>
 
@@ -22,6 +23,8 @@
 	var Promise = Promise || ES6Promise.Promise;
 
     var gn = new GyroNorm();
+    var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    var distance = Array.apply(null, Array(10)).map(Number.prototype.valueOf,0);
 
     gn.init().then(function(){
         gn.start(function(data){
@@ -32,24 +35,27 @@
             document.getElementById("motionx").innerHTML = data.dm.x;
             document.getElementById("motiony").innerHTML = data.dm.y;
             document.getElementById("motionz").innerHTML = data.dm.z;
+
         	console.log(data.do.alpha, data.do.beta, data.do.gamma, data.do.absolute);
         	console.log(data.dm.x, data.dm.y, data.dm.z);
         	console.log(data.dm.gx, data.dm.gy, data.dm.gz);
         	console.log(data.dm.alpha, data.dm.beta, data.dm.gamma);
+            distance.push(Math.abs(data.dm.x)+Math.abs(data.dm.y)+Math.abs(data.dm.z));
+            distance.shift();
+            var sumdistance = 0;
+            for (var i=0; i<distance.length; i++) {
+                sumdistance += distance[i];
+            }
+            var avgdistance = sumdistance/distance.length;
+            document.getElementById("averagedistance").innerHTML = avgdistance;
             // Process:
             // data.do.alpha    ( deviceorientation event alpha value )
             // data.do.beta     ( deviceorientation event beta value )
             // data.do.gamma    ( deviceorientation event gamma value )
             // data.do.absolute ( deviceorientation event absolute value )
-
             // data.dm.x        ( devicemotion event acceleration x value )
             // data.dm.y        ( devicemotion event acceleration y value )
             // data.dm.z        ( devicemotion event acceleration z value )
-
-            // data.dm.gx       ( devicemotion event accelerationIncludingGravity x value )
-            // data.dm.gy       ( devicemotion event accelerationIncludingGravity y value )
-            // data.dm.gz       ( devicemotion event accelerationIncludingGravity z value )
-
             // data.dm.alpha    ( devicemotion event rotationRate alpha value )
             // data.dm.beta     ( devicemotion event rotationRate beta value )
             // data.dm.gamma    ( devicemotion event rotationRate gamma value )
