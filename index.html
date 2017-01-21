@@ -22,21 +22,6 @@
 	<script type="text/javascript">
 	var Promise = Promise || ES6Promise.Promise;
 
-    var audio = new (window.AudioContext || window.webkitAudioContext)();
-
-    bufferLoader = new BufferLoader(
-    context,
-    [
-      'Swing02.WAV',
-    ],
-    finishedLoading
-    );
-    bufferLoader.load();
-
-    var source1 = context.createBufferSource();
-    var source2 = context.createBufferSource();
-    source1.buffer = bufferList[0];
-    swing1.connect(context.destination);
 
     var distance = Array.apply(null, Array(20)).map(Number.prototype.valueOf,0);
     var gn = new GyroNorm();
@@ -63,7 +48,7 @@
             var avgdistance = sumdistance/distance.length;
             document.getElementById("averagedistance").innerHTML = avgdistance;
             if (avgdistance > 50)
-                swing1.start(0);
+                
             // Process:
             // data.do.alpha    ( deviceorientation event alpha value )
             // data.do.beta     ( deviceorientation event beta value )
