@@ -42,7 +42,7 @@
             distance.shift();
             var sumdistance = 0;
             for (var i=0; i<distance.length; i++) {
-                sumdistance += distance[i];
+                sumdistance += distance[i]*i/10;
             };
             var avgdistance = sumdistance/distance.length;
             document.getElementById("averagedistance").innerHTML = avgdistance;
